@@ -3,7 +3,8 @@ import 'package:fl_chart/fl_chart.dart';
 import '../../data/repositories/dolar_repository.dart';
 
 class DolarScreen extends StatefulWidget {
-  const DolarScreen({super.key});
+  final String name;
+  const DolarScreen({super.key, required this.name});
 
   @override
   _DolarScreenState createState() => _DolarScreenState();
@@ -56,15 +57,15 @@ class _DolarScreenState extends State<DolarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cotação do Dólar')),
+      appBar: AppBar(title: Text('Cotação do Dólar - ${widget.name}')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Informe o ano que deseja consultar',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              'Olá, ${widget.name}! Informe o ano que deseja consultar.',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Row(
