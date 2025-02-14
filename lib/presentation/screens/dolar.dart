@@ -57,7 +57,7 @@ class _DolarScreenState extends State<DolarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Cotação do Dólar - ${widget.name}')),
+      appBar: AppBar(title: Text('Cotação do dolar')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
