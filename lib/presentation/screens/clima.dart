@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../../service/database_service.dart';
+import '../../data/models/cidade_model.dart';
 
 class ClimaScreen extends StatefulWidget {
   const ClimaScreen({super.key});
@@ -10,14 +12,25 @@ class ClimaScreen extends StatefulWidget {
 }
 
 class _ClimaScreenState extends State<ClimaScreen> {
-  String cidade = "São Paulo";
+  String cidade = "Brasília";
   double temperatura = 0;
   String condicao = "";
   List<Map<String, dynamic>> previsao = [];
+  final DatabaseService dbService = DatabaseService();
 
   @override
   void initState() {
     super.initState();
+    _carregarCidade();
+  }
+
+  Future<void> _carregarCidade() async {
+    Cidade? cidadeSalva = await dbService.recuperarCidade();
+    if (cidadeSalva != null) {
+      setState(() {
+        cidade = cidadeSalva.nome;
+      });
+    }
     buscarClima(cidade);
   }
 
@@ -53,6 +66,10 @@ class _ClimaScreenState extends State<ClimaScreen> {
           };
         });
       });
+
+      // Salvar cidade pesquisada no banco
+      await dbService.salvarCidade(Cidade(id: 1, nome: cidade));
+
     } catch (e) {
       setState(() {
         condicao = "Erro ao carregar clima";
